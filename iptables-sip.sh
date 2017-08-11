@@ -1,7 +1,6 @@
 #!/bin/bash
 
 UAGENTS=(
-  "sipcli"
   "PBX"
   "voip"
   "sipcli"
