@@ -1,6 +1,5 @@
 Things to actually do:
 * categorise the ruleset
-* put all the rules in their own chain (as per fail2ban)
 * rate limit rules
 * suite of LOG rules for spotting unusual behaviour
 * see how close we can get porting http://c.sipvicious.org/resources/snortrules.txt to iptables LOG

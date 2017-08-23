@@ -2,6 +2,7 @@
 
 # Note we're not looking for "exact match" on the User-Agent - all the strings below
 # will be partial match, so the entry for "x" matches any User-Agent that starts with an 'x'
+CHAIN_NAME="SIP-Reject"
 
 UAGENTS=(
   "PBX"
@@ -38,8 +39,16 @@ UAGENTS=(
   "Conaito"
 )
 
+# Check to see if our chain exists:
+if iptables -L ${CHAIN_NAME} > /dev/null 2>&1; then
+  # Yes, flush it
+  iptables -F ${CHAIN_NAME}
+else
+  # Otherwise create it
+  iptables -N ${CHAIN_NAME}
+fi
+# populate it
 for UA in "${UAGENTS[@]}"
 do
-  iptables -A INPUT -p udp -m udp --dport 5060 -m string --string "User-Agent: ${UA}" --algo bm --icase --to 65535 -j REJECT
-  ip6tables -A INPUT -p udp -m udp --dport 5060 -m string --string "User-Agent: ${UA}" --algo bm --icase --to 65535 -j REJECT
+  iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "User-Agent: ${UA}" --algo bm --icase --to 65535 -j REJECT
 done
