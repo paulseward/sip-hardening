@@ -52,3 +52,12 @@ for UA in "${UAGENTS[@]}"
 do
   iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "User-Agent: ${UA}" --algo bm --icase --to 65535 -j REJECT
 done
+
+# Check to see if our chain is in the input chain 
+if sudo iptables -C INPUT -j SIP-Reject > /dev/null 2>&1; then
+  # Yes, noop
+  :
+else
+  # Otherwise create it
+  iptables -I INPUT -j ${CHAIN_NAME}
+fi
