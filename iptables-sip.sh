@@ -35,6 +35,7 @@ UAGENTS=(
   "Cisco-CUCM"
   "Custom SIP Phone"
   "dr.pes"
+  "Conaito"
 )
 
 for UA in "${UAGENTS[@]}"
