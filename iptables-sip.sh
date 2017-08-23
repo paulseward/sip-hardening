@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Note we're not looking for "exact match" on the User-Agent - all the strings below
+# will be partial match, so the entry for "x" matches any User-Agent that starts with an 'x'
+
 UAGENTS=(
   "PBX"
   "voip"
@@ -24,6 +27,13 @@ UAGENTS=(
   "VaxSIPUserAgent"
   "siparmyknife"
   "Test Agent"
+  "eyeBeam release 3006o"
+  "Ozeki VoIP SIP SDK"
+  "x"
+  "Cisco-SIPGateway"
+  "Cisco-CUCM"
+  "Custom SIP Phone"
+  "dr.pes"
 )
 
 for UA in "${UAGENTS[@]}"
