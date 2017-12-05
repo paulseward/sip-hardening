@@ -28,7 +28,7 @@ UAGENTS=(
   "VaxSIPUserAgent"
   "siparmyknife"
   "Test Agent"
-  "eyeBeam release"
+  "eyeBeam"
   "IM-client/OMA1.0"
   "Ozeki VoIP SIP SDK"
   "x"
