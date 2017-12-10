@@ -4,6 +4,7 @@ This in no way represents features that will appear in this script
 ### Things to actually do:
 * categorise the ruleset, possibly split into multiple lists?
 * rate limit rules
+  * See https://github.com/phreakme/DC23/blob/master/iptables.txt
 * suite of LOG rules for spotting unusual behaviour
 * see how close we can get porting http://c.sipvicious.org/resources/snortrules.txt to iptables LOG
 * Some form of collection/aggregation point for the profiling data
