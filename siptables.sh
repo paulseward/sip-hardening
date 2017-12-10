@@ -37,6 +37,8 @@ UAGENTS=(
   "Custom SIP Phone"
   "dr.pes"
   "Conaito"
+  "FPBX"
+  "Z 3"
 )
 
 # Check to see if our chain exists:
