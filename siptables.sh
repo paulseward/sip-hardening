@@ -12,6 +12,7 @@ UAGENTS=(
   "sipvicious"
   "sip-scan"
   "sipscan"
+  "SIPScan"
   "xlite"
   "MizuPhone"
   "sipsak"
@@ -39,6 +40,9 @@ UAGENTS=(
   "Conaito"
   "FPBX"
   "Z 3"
+  "A_B_C"
+  "aaaaaaaa"
+  "sivus"
 )
 
 # Check to see if our chain exists:
