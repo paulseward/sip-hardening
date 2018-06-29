@@ -38,12 +38,23 @@ UAGENTS=(
   "Custom SIP Phone"
   "dr.pes"
   "Conaito"
-  "FPBX"
   "Z 3"
   "A_B_C"
   "aaaaaaaa"
   "sivus"
 )
+
+# User-Agents removed from the above list as they're in use by legitimate clients
+# of my service, but which you may want to block
+AGGRESSIVE=(
+  "FPBX"
+)
+
+# Quit unless we're root
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
 
 # Check to see if our chain exists:
 if iptables -L ${CHAIN_NAME} > /dev/null 2>&1; then
