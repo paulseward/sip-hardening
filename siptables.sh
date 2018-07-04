@@ -4,7 +4,11 @@
 # will be partial match, so the entry for "x" matches any User-Agent that starts with an 'x'
 CHAIN_NAME="SIP-Reject"
 
-UAGENTS=(
+# If we're regex blocking, we'll need a whitelist of legitimate User-Agents
+WHITELIST=(
+)
+
+BLACKLIST=(
   "PBX"
   "voip"
   "sipcli"
@@ -64,8 +68,17 @@ else
   # Otherwise create it
   iptables -N ${CHAIN_NAME}
 fi
-# populate it
-for UA in "${UAGENTS[@]}"
+
+# populate the chain, with WHITELIST->BLACKLIST->AGGRESSIVE->EXPERIMENTAL
+for UA in "${WHITELIST[@]}"
+do
+  iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "User-Agent: ${UA}" --algo bm --icase --to 65535 -j ACCEPT
+done
+for UA in "${BLACKLIST[@]}"
+do
+  iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "User-Agent: ${UA}" --algo bm --icase --to 65535 -j REJECT
+done
+for UA in "${AGGRESSIVE[@]}"
 do
   iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "User-Agent: ${UA}" --algo bm --icase --to 65535 -j REJECT
 done
