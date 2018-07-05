@@ -46,6 +46,7 @@ BLACKLIST=(
   "A_B_C"
   "aaaaaaaa"
   "sivus"
+  "China"
 )
 
 # User-Agents removed from the above list as they're in use by legitimate clients
