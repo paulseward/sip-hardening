@@ -53,6 +53,7 @@ BLACKLIST=(
 # of my service, but which you may want to block
 AGGRESSIVE=(
   "FPBX"
+  "FreePBX "
 )
 
 # Quit unless we're root
