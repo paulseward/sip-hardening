@@ -56,6 +56,12 @@ AGGRESSIVE=(
   "FreePBX "
 )
 
+# sipvicious indicator signatures, to block regardless of the User-Agent
+SIPVICIOUS=(
+  "sipvicious"
+  "@1.1.1.1>"
+)
+
 # Quit unless we're root
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
@@ -71,7 +77,12 @@ else
   iptables -N ${CHAIN_NAME}
 fi
 
-# populate the chain, with WHITELIST->BLACKLIST->AGGRESSIVE->EXPERIMENTAL
+# populate the chain, with SIPVICIOUS->WHITELIST->BLACKLIST->AGGRESSIVE->EXPERIMENTAL
+# So that sipvicious gets blocked, even if it's using a User-Agent that's on the whitelist
+for SIG in "${SIPVICIOUS[@]}"
+do
+  iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "${SIG}" --algo bm --icase --to 65535 -j REJECT
+done
 for UA in "${WHITELIST[@]}"
 do
   iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "User-Agent: ${UA}" --algo bm --icase --to 65535 -j ACCEPT
