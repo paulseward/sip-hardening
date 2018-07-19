@@ -9,6 +9,7 @@ WHITELIST=(
 )
 
 BLACKLIST=(
+  "Asterix PBX"
   "PBX"
   "voip"
   "sipcli"
