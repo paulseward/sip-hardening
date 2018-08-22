@@ -20,6 +20,7 @@ BLACKLIST=(
   "Custom SIP Phone"
   "dr.pes"
   "eyeBeam"
+  "FourCats"
   "friendly-request"
   "friendly-scanner"
   "Gulp"
@@ -28,6 +29,7 @@ BLACKLIST=(
   "MizuPhone"
   "Ozeki VoIP SIP SDK"
   "PBX"
+  "PortSIP VoIP SDK"
   "pplsip"
   "siparmyknife"
   "sipcli"
@@ -53,9 +55,14 @@ BLACKLIST=(
 
 # User-Agents removed from the above list as they're in use by legitimate clients
 # of my service, but which you may want to block
+#
+# Asterisk default UA is "Asterisk PBX" and some scanners are using that
+# They're also using "Asterisk" on its own, so we attempt to block that by terminating
+# the match with a \n
 AGGRESSIVE=(
   "FPBX"
   "FreePBX "
+  "Asterisk\n"
 )
 
 # sipvicious indicator signatures, to block regardless of the User-Agent
