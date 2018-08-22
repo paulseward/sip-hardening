@@ -7,8 +7,6 @@ This in no way represents features that will appear in this script
   * See https://github.com/phreakme/DC23/blob/master/iptables.txt
 * suite of LOG rules for spotting unusual behaviour
 * see how close we can get porting http://c.sipvicious.org/resources/snortrules.txt to iptables LOG
-* Some form of collection/aggregation point for the profiling data
-* Drag in the parsing scripts for working on the ua logs
 * More thorough assessment of SIP headers
 
 ### Random selection of links to explore
