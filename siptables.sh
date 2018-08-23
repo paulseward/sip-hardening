@@ -4,6 +4,11 @@
 # will be partial match, so the entry for "x" matches any User-Agent that starts with an 'x'
 CHAIN_NAME="SIP-Reject"
 
+# List of networks to whitelist - ie, your internal network
+IP_WHITELIST=(
+  "10.0.0.0/24"
+)
+
 # If we're regex blocking, we'll need a whitelist of legitimate User-Agents
 WHITELIST=(
 )
@@ -86,8 +91,15 @@ else
   iptables -N ${CHAIN_NAME}
 fi
 
-# populate the chain, with SIPVICIOUS->WHITELIST->BLACKLIST->AGGRESSIVE->EXPERIMENTAL
+# Add the IP Whitelist to the chain first
+for INET in "${IP_WHITELIST[@]}"
+do
+  iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -s ${INET} -j ACCEPT
+done
+
+# populate the chain, with SIPVICIOUS->WHITELIST->BLACKLIST->AGGRESSIVE
 # So that sipvicious gets blocked, even if it's using a User-Agent that's on the whitelist
+#
 for SIG in "${SIPVICIOUS[@]}"
 do
   iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "${SIG}" --algo bm --icase --to 65535 -j REJECT
