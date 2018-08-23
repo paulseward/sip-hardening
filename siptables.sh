@@ -67,7 +67,6 @@ BLACKLIST=(
 AGGRESSIVE=(
   "FPBX"
   "FreePBX "
-  "Asterisk\n"
 )
 
 # sipvicious indicator signatures, to block regardless of the User-Agent
