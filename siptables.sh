@@ -117,7 +117,7 @@ do
 done
 
 # Check to see if our chain is in the input chain 
-if sudo iptables -C INPUT -j SIP-Reject > /dev/null 2>&1; then
+if iptables -C INPUT -j SIP-Reject > /dev/null 2>&1; then
   # Yes, noop
   :
 else
