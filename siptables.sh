@@ -28,6 +28,7 @@ BLACKLIST=(
   "FourCats"
   "friendly-request"
   "friendly-scanner"
+  "fgfdhgfxjfhyjhkj"
   "Gulp"
   "IM-client/OMA1.0"
   "iWar"
