@@ -68,12 +68,25 @@ BLACKLIST=(
 AGGRESSIVE=(
   "FPBX"
   "FreePBX "
+  "Linksys"
 )
 
 # sipvicious indicator signatures, to block regardless of the User-Agent
 SIPVICIOUS=(
   "sipvicious"
   "@1.1.1.1>"
+)
+
+# For some reason, people seem to be spraying INVITEs that look like the
+# packets described in RFC 3261.  This is likely a poorly configured default
+# so we'll just block any fqdn mentioned in the RFC.
+RFC3261=(
+  "pc33.atlanta.com"
+  "server10.biloxi.com"
+  "bigbox3.site3.atlanta.com"
+  "bobspc.biloxi.com"
+  "erlang.bell-telephone.com"
+  "first.example.com"
 )
 
 # Quit unless we're root
@@ -115,6 +128,10 @@ done
 for UA in "${AGGRESSIVE[@]}"
 do
   iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "User-Agent: ${UA}" --algo bm --icase --to 65535 -j REJECT
+done
+for FQDN in "${RFC3261[@]}"
+do
+  iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "${FQDN}" --algo bm --icase --to 65535 -j REJECT
 done
 
 # Check to see if our chain is in the input chain 
