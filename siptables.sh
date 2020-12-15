@@ -6,7 +6,8 @@ CHAIN_NAME="SIP-Reject"
 
 # List of networks to whitelist - ie, your internal network
 IP_WHITELIST=(
-  "10.0.0.0/24"
+  "10.0.0.0/24"  # internal network
+  "217.10.79.23" # sipgate
 )
 
 # If we're regex blocking, we'll need a whitelist of legitimate User-Agents
@@ -75,6 +76,23 @@ AGGRESSIVE=(
 SIPVICIOUS=(
   "sipvicious"
   "@1.1.1.1>"
+  "Via: SIP/2.0/UDP 172.16"
+  "UDP 172.16"
+  "UDP 172.17"
+  "UDP 172.18"
+  "UDP 172.19"
+  "UDP 172.20"
+  "UDP 172.21"
+  "UDP 172.22"
+  "UDP 172.23"
+  "UDP 172.24"
+  "UDP 172.25"
+  "UDP 172.26"
+  "UDP 172.27"
+  "UDP 172.28"
+  "UDP 172.29"
+  "UDP 172.30"
+  "UDP 172.31"
 )
 
 # For some reason, people seem to be spraying INVITEs that look like the
@@ -133,6 +151,7 @@ for FQDN in "${RFC3261[@]}"
 do
   iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "${FQDN}" --algo bm --icase --to 65535 -j REJECT
 done
+iptables -A ${CHAIN_NAME} -j RETURN
 
 # Check to see if our chain is in the input chain 
 if iptables -C INPUT -j SIP-Reject > /dev/null 2>&1; then
