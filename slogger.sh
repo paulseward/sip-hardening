@@ -35,13 +35,13 @@ if [ -n "$LOGFILE" ]; then
   tshark -l -f "port 5060" \
     -Y '(sip.Method=="REGISTER") or (sip.Method=="INVITE") or (sip.Method=="OPTIONS")' \
     -T fields \
-    -e frame.time -e ip.src -e ip.dst -e sip.Method -e sip.User-Agent -e sip.auth.uri -e sip.To \
+    -e frame.time -e ip.src -e ip.dst -e sip.Method -e sip.User-Agent -e sip.auth.uri -e sip.To -e sip.Via\
     -E header=y -E separator=, -E quote=d \
     > "${LOGFILE}" 2>&1
 else
   tshark -l -f "port 5060" \
     -Y '(sip.Method=="REGISTER") or (sip.Method=="INVITE") or (sip.Method=="OPTIONS")' \
     -T fields \
-    -e frame.time -e ip.src -e ip.dst -e sip.Method -e sip.User-Agent -e sip.auth.uri -e sip.To \
+    -e frame.time -e ip.src -e ip.dst -e sip.Method -e sip.User-Agent -e sip.auth.uri -e sip.To -e sip.Via\
     -E header=y -E separator=, -E quote=d
 fi
