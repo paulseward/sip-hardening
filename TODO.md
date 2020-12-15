@@ -15,3 +15,4 @@ This in no way represents features that will appear in this script
 * http://data.proidea.org.pl/confidence/5edycja/materialy/prezentacje/sandro_gauci_confidence_2009.pdf - lots of interesting
 * https://github.com/jesusprubio/bluebox-ng
 * https://github.com/orgdeftcode/vsaudit
+* https://github.com/blox-org/SIP-IPS-CONF
