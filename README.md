@@ -18,7 +18,7 @@
   * TODO: add the pjsip equivalent advice of the defaults mentioned above
 
 * IP Address Blocking
-  * A sip specific block list such as [apiban.org](apiban.org) is useful
+  * A sip specific block list such as [apiban.org](https://apiban.org) is useful
   * fail2ban can help too
 
 ## Known caveats:
