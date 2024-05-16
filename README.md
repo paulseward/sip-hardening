@@ -26,6 +26,7 @@
 * User-Agent matching isn't going to stop determined or compitent attackers, but it does reduce the noise to levels that makes them easier to spot
 * We're using iptables string matching, I haven't tested this on a high throughput server.  My hosts only handle a couple of dozen legitimate calls a day.
 * Some scanners use randomized User-Agent strings, which we can't currently spot.  If you've got `kprce` and can do regex bases string matching in iptables, you may be able to add that
+* We're only touching IPv4 traffic, if you extend this to cover IPv6 I'd welcome a PR
 
 ## User-Agent Identification Methodology
 Suspect User-Agents have been sourced from:

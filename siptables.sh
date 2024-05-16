@@ -2,9 +2,11 @@
 
 CHAIN_NAME="SIP-Reject"
 
-# List of networks to allow - ie, your internal network
+# List of networks to always allow - eg RFC1918 Addresses
 IP_ALLOWLIST=(
-  "10.0.0.0/24"
+  "10.0.0.0/8"
+  "172.16.0.0/12"
+  "192.168.0.0/16"
 )
 
 # List of legitimate User-Agents to allow
