@@ -4,16 +4,16 @@
 # will be partial match, so the entry for "x" matches any User-Agent that starts with an 'x'
 CHAIN_NAME="SIP-Reject"
 
-# List of networks to whitelist - ie, your internal network
-IP_WHITELIST=(
+# List of networks to allow - ie, your internal network
+IP_ALLOWLIST=(
   "10.0.0.0/24"
 )
 
-# If we're regex blocking, we'll need a whitelist of legitimate User-Agents
-WHITELIST=(
+# If we're regex blocking, we'll need a allow of legitimate User-Agents
+ALLOWLIST=(
 )
 
-BLACKLIST=(
+BLOCKLIST=(
   "aaaaaaaa"
   "A_B_C"
   "Asterix PBX"
@@ -104,24 +104,24 @@ else
   iptables -N ${CHAIN_NAME}
 fi
 
-# Add the IP Whitelist to the chain first
-for INET in "${IP_WHITELIST[@]}"
+# Add the IP Allowlist to the chain first
+for INET in "${IP_ALLOWLIST[@]}"
 do
   iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -s ${INET} -j ACCEPT
 done
 
-# populate the chain, with SIPVICIOUS->WHITELIST->BLACKLIST->AGGRESSIVE
-# So that sipvicious gets blocked, even if it's using a User-Agent that's on the whitelist
+# populate the chain, with SIPVICIOUS->ALLOWLIST->BLOCKLIST->AGGRESSIVE
+# So that sipvicious gets blocked, even if it's using a User-Agent that's on the allow
 #
 for SIG in "${SIPVICIOUS[@]}"
 do
   iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "${SIG}" --algo bm --icase --to 65535 -j REJECT
 done
-for UA in "${WHITELIST[@]}"
+for UA in "${ALLOWLIST[@]}"
 do
   iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "User-Agent: ${UA}" --algo bm --icase --to 65535 -j ACCEPT
 done
-for UA in "${BLACKLIST[@]}"
+for UA in "${BLOCKLIST[@]}"
 do
   iptables -A ${CHAIN_NAME} -p udp -m udp --dport 5060 -m string --string "User-Agent: ${UA}" --algo bm --icase --to 65535 -j REJECT
 done
