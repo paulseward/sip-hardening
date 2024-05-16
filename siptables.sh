@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Note we're not looking for "exact match" on the User-Agent - all the strings below
-# will be partial match, so the entry for "x" matches any User-Agent that starts with an 'x'
 CHAIN_NAME="SIP-Reject"
 
 # List of networks to allow - ie, your internal network
@@ -9,10 +7,12 @@ IP_ALLOWLIST=(
   "10.0.0.0/24"
 )
 
-# If we're regex blocking, we'll need a allow of legitimate User-Agents
+# List of legitimate User-Agents to allow
 ALLOWLIST=(
 )
 
+# Note we're not looking for "exact match" on the User-Agent - all the strings below
+# will be partial match, so the entry for "x" matches any User-Agent that starts with an 'x'
 BLOCKLIST=(
   "aaaaaaaa"
   "A_B_C"
